@@ -7,7 +7,7 @@ Each folder has scripts and files with the following information:
 * `plots`: Rmarkdown and Python scripts to make the figures in the manuscript
 * `assembly`: Scripts for the genome assembly of _Cuora trifasciata_
 * `demography`: Scripts for PSMC
-* `annotation`: Scripts for Tiberius annotations and OrthoFinder
+* `annotations`: Scripts and files for Tiberius annotations and OrthoFinder
 * `convergence`: Scripts and files for convergence testing, including TWISST topology weighting, RERconverge, and CAFE5
 * `selection`: Scripts and files for selection tests with HyPhy
   
