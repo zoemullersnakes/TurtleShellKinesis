@@ -1,0 +1,41 @@
+# PhyloAcc run: convergent acceleration of conserved non-coding elements in
+# kinetic turtle lineages. Decide every value marked DECIDE before the run and
+# record it in your methods log; do not change it after seeing results.
+
+aln_file: /anvil/scratch/x-zlm9173/phyloacc_input/cne.fa
+bed_file: /anvil/scratch/x-zlm9173/phyloacc_input/cne.bed
+mod_file: /anvil/scratch/x-zlm9173/phast_turtles/neutral.labeled.mod   # 4d neutral model
+out_dir:  /anvil/scratch/x-zlm9173/phyloacc_out_adaptive
+
+# Foreground: the 4 kinetic tips. The Emydoidea+Emys stem is added
+# automatically (an internal branch whose descendants are all targets).
+targets: "Cuotri;Terrapene_triunguis;Emydoidea_blandingii;Emys_orbicularis"
+
+# DECIDE: gene-tree-aware model for short, discordant emydid internodes.
+# adaptive = gene-tree model where many branches have low site concordance,
+# species-tree model elsewhere; needs gene trees -> theta_flag true.
+run_mode: adaptive
+theta_flag: false
+coal_tree:  /anvil/scratch/x-zlm9173/phyloacc_gt/turtles.coal.tree
+
+# DECIDE: true masks soft-masked (lowercase) repeats. Check first that every
+# genome, including Cuora, is soft-masked in the HAL, or masking is uneven.
+softmask: true
+
+# Drops loci where >=50% of sites are >=50% gaps, or >=50% of species are
+# >=50% gaps (PhyloAcc's own filter).
+filter_alns: true
+
+# MCMC (PhyloAcc defaults are burnin 500 / mcmc 1000; longer is safer)
+burnin: 1000
+mcmc: 3000
+chain: 1
+
+# Cluster: ~500 loci per Slurm job keeps the job count manageable
+batch_size: 500
+procs_per_batch: 4
+num_jobs: 100            # concurrent Slurm jobs
+cluster_part: shared
+cluster_mem: 16          # GB per job
+cluster_time: 24         # hours per job
+num_procs: 8            # cores for this setup step (gene trees with --theta)
